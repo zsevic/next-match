@@ -6,7 +6,7 @@ from gi.repository import Gtk as gtk
 gi.require_version('AppIndicator3','0.1')
 from gi.repository import AppIndicator3 as appindicator
 
-APPINDICATOR_ID='myappindicator'
+APPINDICATOR_ID='nextmatch'
 URL='http://int.soccerway.com/teams/serbia/fk-crvena-zvezda-beograd/1942'
 
 def main():
@@ -18,10 +18,10 @@ def main():
 
 def build_menu():
     menu=gtk.Menu()
-    item_quit=gtk.MenuItem('Quit')
-    item_quit.connect('activate',quit)
     item_match=gtk.MenuItem('Next match')
     item_match.connect('activate',match)
+    item_quit=gtk.MenuItem('Quit')
+    item_quit.connect('activate',quit)
     menu.append(item_match)
     menu.append(item_quit)
     menu.show_all()
@@ -45,10 +45,10 @@ def next_match():
     return next
 
 def parseHtml(html):
+    res=""
     dom=htmldom.HtmlDom()
     dom=dom.createDom(html)
     time=dom.find(".timestamp").text()
-    res=""
     res+=time
     team_a=dom.find(".team-a").text()
     team_b=dom.find(".team-b").text()
