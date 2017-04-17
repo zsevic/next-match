@@ -1,6 +1,5 @@
 import gi,signal,os,notify2,json,urllib
 from htmldom import htmldom
-from pyquery import PyQuery as pq
 from urllib.request import urlopen, Request
 gi.require_version('Gtk','3.0')
 from gi.repository import Gtk as gtk
@@ -42,7 +41,19 @@ def next_match():
     html=resp.read().decode('utf-8')
     dom=dom.createDom(html);
     next=dom.find(".matches > tbody .result-win").last().parent().parent().next().html()
+    next=parseHtml(next)
     return next
+
+def parseHtml(html):
+    dom=htmldom.HtmlDom()
+    dom=dom.createDom(html)
+    time=dom.find(".timestamp").text()
+    res=""
+    res+=time
+    team_a=dom.find(".team-a").text()
+    team_b=dom.find(".team-b").text()
+    res+="".join([team_a.strip()," - ",team_b.strip()])
+    return res
 
 if __name__=="__main__":
     signal.signal(signal.SIGINT,signal.SIG_DFL)
