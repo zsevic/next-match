@@ -10,7 +10,7 @@ APPINDICATOR_ID='myappindicator'
 URL='http://int.soccerway.com/teams/serbia/fk-crvena-zvezda-beograd/1942'
 
 def main():
-    indicator=appindicator.Indicator.new(APPINDICATOR_ID,os.path.abspath('rsb.svg'),appindicator.IndicatorCategory.SYSTEM_SERVICES)
+    indicator=appindicator.Indicator.new(APPINDICATOR_ID,os.path.abspath('./images/icon.png'),appindicator.IndicatorCategory.SYSTEM_SERVICES)
     indicator.set_status(appindicator.IndicatorStatus.ACTIVE)
     indicator.set_menu(build_menu())
     notify2.init(APPINDICATOR_ID)
