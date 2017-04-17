@@ -1,10 +1,10 @@
 Next Match
 ===
 
-App indicator for Linux that shows next Red Star football match 
+App indicator for Linux that shows next Red Star football and basketball match 
 ---
 
-### Used technologies:
+### Used technologies
 * Python 3.5
 
 ### Setup
