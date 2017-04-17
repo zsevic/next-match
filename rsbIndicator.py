@@ -8,6 +8,7 @@ gi.require_version('AppIndicator3','0.1')
 from gi.repository import AppIndicator3 as appindicator
 
 APPINDICATOR_ID='myappindicator'
+URL='http://int.soccerway.com/teams/serbia/fk-crvena-zvezda-beograd/1942'
 
 def main():
     indicator=appindicator.Indicator.new(APPINDICATOR_ID,os.path.abspath('rsb.svg'),appindicator.IndicatorCategory.SYSTEM_SERVICES)
@@ -36,12 +37,12 @@ def quit(_):
     gtk.main_quit()
 
 def next_match():
-    url='http://int.soccerway.com/teams/serbia/fk-crvena-zvezda-beograd/1942'
-    resp=urlopen(url)
-    html=resp.read()
-    d=pq(html)
-    d=d(".matches > tbody tr .result-win:last")
-    return str(d)
+    dom=htmldom.HtmlDom()
+    resp=urlopen(URL)
+    html=resp.read().decode('utf-8')
+    dom=dom.createDom(html);
+    next=dom.find(".matches > tbody .result-win").last().parent().parent().next().html()
+    return next
 
 if __name__=="__main__":
     signal.signal(signal.SIGINT,signal.SIG_DFL)
