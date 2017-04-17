@@ -1,4 +1,4 @@
-import gi,signal,os,notify2,json,urllib
+import gi,signal,os,notify2,urllib
 from htmldom import htmldom
 from urllib.request import urlopen, Request
 gi.require_version('Gtk','3.0')
@@ -39,8 +39,12 @@ def next_match():
     dom=htmldom.HtmlDom()
     resp=urlopen(URL)
     html=resp.read().decode('utf-8')
-    dom=dom.createDom(html);
-    next=dom.find(".matches > tbody .result-win").last().parent().parent().next().html()
+    dom=dom.createDom(html)
+    win_length=dom.find(".result-win").length()
+    draw_length=dom.find(".result-draw").length()
+    loss_length=dom.find(".result-loss").length()
+    length=win_length+draw_length+loss_length
+    next=dom.find(".matches > tbody").children().eq(length).html()
     next=parseHtml(next)
     return next
 
