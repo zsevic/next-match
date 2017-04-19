@@ -61,7 +61,10 @@ def parseHtml(html):
     dom=htmldom.HtmlDom()
     dom=dom.createDom(html)
     time=dom.find(".timestamp").text()
-    res+=time
+    if(len(time)==0):
+        res+="N/A\n"
+    else:
+        res+=time
     team_a=dom.find(".team-a").text()
     team_b=dom.find(".team-b").text()
     res+="".join([team_a.strip()," - ",team_b.strip()])
