@@ -52,9 +52,9 @@ def next_match(url):
     draw_length=dom.find(".result-draw").length()
     loss_length=dom.find(".result-loss").length()
     length=win_length+draw_length+loss_length
-    next=dom.find(".matches > tbody").children().eq(length).html()
-    next=parseHtml(next)
-    return next
+    fixture=dom.find(".matches > tbody").children().eq(length).html()
+    fixture=parseHtml(fixture)
+    return fixture
 
 def parseHtml(html):
     res=""
@@ -62,7 +62,10 @@ def parseHtml(html):
     dom=dom.createDom(html)
     time=dom.find(".timestamp").text()
     if(len(time)==0):
-        res+="N/A\n"
+        day=dom.find(".match_timestamp").text()
+        date=dom.find(".full-date").text()
+        res+=day
+        res+=date
     else:
         res+=time
     team_a=dom.find(".team-a").text()
