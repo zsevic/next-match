@@ -52,9 +52,10 @@ def next_match(url):
     draw_length=dom.find(".result-draw").length()
     loss_length=dom.find(".result-loss").length()
     length=win_length+draw_length+loss_length
-    fixture=dom.find(".matches > tbody").children().eq(length).html()
-    fixture=parseHtml(fixture)
-    return fixture
+    fixture=dom.find(".matches > tbody").children().eq(length)
+    if(fixture==None):
+        return "There is no match in the schedule"
+    return parseHtml(fixture.html())
 
 def parseHtml(html):
     res=""
