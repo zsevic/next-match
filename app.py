@@ -54,7 +54,10 @@ def next_match(url):
             'result-draw'
         ]}
     )
-    next_round = len(past_matches)
+    cancelled_matches = soup.findAll('a', {
+        'title':'Cancelled' 
+    })
+    next_round = len(past_matches) + len(cancelled_matches)
     table = soup.find('table', {'class': 'matches'})
     table_body = table.find('tbody')
     matches = table_body.findAll('tr')
