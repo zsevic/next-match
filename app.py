@@ -55,16 +55,17 @@ def next_match(url):
         ]}
     )
     cancelled_matches = soup.findAll('a', {
-        'title':'Cancelled' 
+        'title': 'Cancelled' 
     })
     next_round = len(past_matches) + len(cancelled_matches)
     table = soup.find('table', {'class': 'matches'})
     table_body = table.find('tbody')
     matches = table_body.findAll('tr')
-    next_one = matches[next_round]
-    if next_one == None:
+    try:
+        next_one = matches[next_round]
+        return parseHtml(str(next_one))
+    except:
         return "There is no match in the schedule"
-    return parseHtml(str(next_one))
 
 def parseHtml(html):
     res = ''
