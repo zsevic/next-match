@@ -18,6 +18,13 @@ sudo apt-get install python3-pip
 pip3 install notify2 --user
 ```
 
+### :wrench: Setup
+
+```
+git clone https://github.com/zsevic/next-match
+python3 app.py
+```
+
 ### :computer: Installation
 
 - Clone repository to your local machine
