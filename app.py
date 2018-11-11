@@ -33,11 +33,11 @@ def build_menu():
     return menu
 
 def football(_):
-    fb = notify2.Notification("<b>Next football match</b>", next_match(URL_FOOTBALL))
+    fb = notify2.Notification('Next football match', next_match(URL_FOOTBALL))
     fb.show()
 
 def basketball(_):
-    bb = notify2.Notification("<b>Next basketball match</b>", next_match(URL_BASKETBALL))
+    bb = notify2.Notification('Next basketball match', next_match(URL_BASKETBALL))
     bb.show()
 
 def quit(_):
@@ -57,7 +57,10 @@ def next_match(url):
     cancelled_matches = soup.findAll('a', {
         'title': 'Cancelled' 
     })
-    next_round = len(past_matches) + len(cancelled_matches)
+    postponed_matches = soup.findAll('a', {
+        'title': 'Postponed' 
+    })
+    next_round = len(past_matches) + len(cancelled_matches) + len(postponed_matches)
     table = soup.find('table', {'class': 'matches'})
     table_body = table.find('tbody')
     matches = table_body.findAll('tr')
@@ -73,9 +76,12 @@ def parseHtml(html):
     day = match_html.find('td', {'class': 'day'}).text
     date = match_html.find('td', {'class': 'full-date'}).text
     res += '\n'.join([day,date])
-    if(match_html.find('td', {'class': 'score-time'})):
+    if (match_html.find('td', {'class': 'score-time'})):
         time = match_html.find('td', {'class': 'score-time'}).text
-        res += time
+        if time.strip() != '-':
+            res += time
+        else:
+            res += '\n'
     
     team_a = match_html.find('td', {'class': 'team-a'})
     team_a = team_a.find('a').get('title')
